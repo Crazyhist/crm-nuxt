@@ -7,6 +7,7 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'@nuxtjs/tailwindcss',
 		'@nuxt/icon',
+		'@pinia/nuxt',
 		(_options, nuxt) => {
 			nuxt.hooks.hook('vite:extendConfig', (config) => {
 				// @ts-expect-error

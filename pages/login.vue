@@ -1,7 +1,38 @@
 <script setup lang="ts">
+import { useAuthStore, useIsLoadingStore } from '~/store/auth.store'
+
 useSeoMeta({
-	title: 'Login',
+	title: 'Login | CRM',
 })
+const emailRef = ref('')
+const passwordRef = ref('')
+const nameRef = ref('')
+
+const isLoadingStore = useIsLoadingStore()
+const authStore = useAuthStore()
+const router = useRouter()
+
+const login = async () => {
+	isLoadingStore.set(true)
+	await account.createEmailPasswordSession(emailRef.value, passwordRef.value)
+	const response = await account.get()
+	if (response) {
+		authStore.set({
+			email: response.email,
+			name: response.name,
+			status: response.status,
+		})
+	}
+
+	emailRef.value = ''
+	passwordRef.value = ''
+	nameRef.value = ''
+
+	await router.push('/')
+	isLoadingStore.set(false)
+}
+
+const register = async () => {}
 </script>
 
 <template>
