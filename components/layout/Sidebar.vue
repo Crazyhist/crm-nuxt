@@ -7,7 +7,10 @@ const router = useRouter()
 
 const logout = async () => {
 	isLoadingStore.set(true)
-	await account
+	await account.deleteSession('current')
+	store.clear()
+	await router.push('/login')
+	isLoadingStore.set(false)
 }
 </script>
 
