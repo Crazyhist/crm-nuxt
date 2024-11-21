@@ -8,6 +8,6 @@
 
 <style scoped>
 .wrapper {
-	@apply flex items-center justify-center w-screen h-screen;
+	@apply flex items-center justify-center w-screen bg-midnight h-screen;
 }
 </style>
