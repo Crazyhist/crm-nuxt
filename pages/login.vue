@@ -40,10 +40,9 @@ const register = async () => {
 </script>
 
 <template>
-	<v-container class="d-flex justify-center align-center min-h-screen">
+	<div class="d-flex justify-center align-center min-h-screen bg-midnight">
 		<v-card class="pa-5" max-width="400px" elevation="2">
 			<v-card-title class="text-center">Login</v-card-title>
-
 			<v-form>
 				<v-text-field
 					v-model="emailRef"
@@ -89,5 +88,5 @@ const register = async () => {
 				</v-row>
 			</v-form>
 		</v-card>
-	</v-container>
+	</div>
 </template>

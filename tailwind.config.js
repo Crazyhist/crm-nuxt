@@ -15,6 +15,7 @@ module.exports = {
 		extend: {
 			colors: {
 				midnight: '#121212',
+				card: '#483d8b',
 			},
 		},
 	},
