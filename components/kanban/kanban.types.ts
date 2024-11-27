@@ -1,5 +1,7 @@
+import type { EnumStatus } from '~/types/deals.types'
+
 export interface ICard {
-	id: number
+	id: string
 	name: string
 	price: number
 	companyName: string
@@ -8,7 +10,7 @@ export interface ICard {
 }
 
 export interface IColumn {
-	id: number
+	id: EnumStatus
 	name: string
 	items: ICard[]
 }
