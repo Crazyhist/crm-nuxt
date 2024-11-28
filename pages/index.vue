@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import type { ICard, IColumn } from '~/components/kanban/kanban.types'
 import { useKanbanQuery } from '~/components/kanban/useKanbanQuery'
 
@@ -17,7 +18,7 @@ const { data, isLoading, refetch } = useKanbanQuery()
 	<div class="bg-midnight h-full w-full">
 		<div class="p-10">
 			<h1 class="font-bold text-2xl text-white mb-10">CRM System</h1>
-			<div v-if="isLoading">Loading...</div>
+			<div v-if="isLoading" class="text-white">Loading...</div>
 			<div v-else>
 				<div class="grid grid-cols-5 gap-16">
 					<div v-for="(column, index) in data" :key="column.id">
@@ -26,15 +27,29 @@ const { data, isLoading, refetch } = useKanbanQuery()
 						>
 							{{ column.name }}
 						</div>
-						<div draggable="true" class="rounded-xl border transition-colors">
+						<div v-for="card in column.items" :key="card.id" draggable="true">
 							<v-card
 								color="indigo-darken-3"
 								label="indigo-darken-3"
 								value="indigo-darken-3"
-								title="Card title"
-								subtitle="Subtitle"
-								text="..."
-							></v-card>
+								class="cursor-grab rounded-lg"
+							>
+								<v-card-item class="">
+									<v-card-title> {{ card.name }} </v-card-title>
+									<v-card-subtitle class="pa-0">
+										{{ convertCurrency(card.price) }}
+									</v-card-subtitle>
+								</v-card-item>
+
+								<v-card-item class="">
+									<v-card-text class="pa-0">
+										{{ card.companyName }}
+									</v-card-text>
+									<v-card-subtitle class="">
+										{{ dayjs(card.$createdAt).format('DD MMM YYYY') }}
+									</v-card-subtitle>
+								</v-card-item>
+							</v-card>
 						</div>
 					</div>
 				</div>
