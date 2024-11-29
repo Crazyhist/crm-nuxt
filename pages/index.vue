@@ -27,7 +27,12 @@ const { data, isLoading, refetch } = useKanbanQuery()
 						>
 							{{ column.name }}
 						</div>
-						<div v-for="card in column.items" :key="card.id" draggable="true">
+						<div
+							v-for="card in column.items"
+							:key="card.id"
+							draggable="true"
+							class="mb-2"
+						>
 							<v-card
 								color="indigo-darken-3"
 								label="indigo-darken-3"
