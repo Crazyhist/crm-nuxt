@@ -16,6 +16,7 @@
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@pinia/nuxt": "^0.7.0",
     "@tanstack/vue-query": "^5.60.6",
+    "@vee-validate/nuxt": "^4.14.7",
     "appwrite": "^16.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
