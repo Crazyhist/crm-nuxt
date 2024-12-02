@@ -45,9 +45,13 @@ const { mutate, isPending } = useMutation({
 		handleReset()
 	},
 })
-
 const onSubmit = handleSubmit((values) => {
-	mutate(values)
+	const payload = {
+		...values,
+		price: parseInt(values.price, 10), // Total
+	}
+	console.log('Отправляемые данные:', values)
+	mutate(payload)
 })
 </script>
 

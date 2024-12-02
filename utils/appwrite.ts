@@ -3,7 +3,7 @@ import { APP_WRITE_ID } from './app.constans'
 
 export const client = new Client()
 
-client.setProject(APP_WRITE_ID)
+client.setEndpoint('https://cloud.appwrite.io/v1').setProject(APP_WRITE_ID)
 
 export const account = new Account(client)
 export const DB = new Databases(client)
