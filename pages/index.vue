@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { useMutation } from '@tanstack/vue-query'
 import dayjs from 'dayjs'
 import type { ICard, IColumn } from '~/components/kanban/kanban.types'
 import { useKanbanQuery } from '~/components/kanban/useKanbanQuery'
+import type { EnumStatus } from '~/types/deals.types'
 
 useSeoMeta({
 	title: 'Home | CRM System',
@@ -12,6 +14,36 @@ const sourceColumnRef = ref<IColumn | null>(null)
 const { data, isLoading, refetch } = useKanbanQuery()
 
 // watch(isLoading,() =>)
+type TypeMutationVariables = {
+	docId: string
+	status?: EnumStatus
+}
+
+const { mutate } = useMutation({
+	mutationKey: ['move card'],
+	mutationFn: ({ docId, status }: TypeMutationVariables) =>
+		DB.updateDocument(DB_ID, COLLECTION_DEALS, docId, {
+			status,
+		}),
+	onSuccess: () => {
+		refetch()
+	},
+})
+
+function handleDragStart(card: ICard, column: IColumn) {
+	dragCardRef.value = card
+	sourceColumnRef.value = column
+}
+
+function handleDragOver(event: DragEvent) {
+	event.preventDefault()
+}
+
+function handleDrop(targetColumn: IColumn) {
+	if (dragCardRef.value && sourceColumnRef.value) {
+		mutate({ docId: dragCardRef.value.id, status: targetColumn.id })
+	}
+}
 </script>
 
 <template>
@@ -21,7 +53,13 @@ const { data, isLoading, refetch } = useKanbanQuery()
 			<div v-if="isLoading" class="text-white">Loading...</div>
 			<div v-else>
 				<div class="grid grid-cols-5 gap-16">
-					<div v-for="(column, index) in data" :key="column.id">
+					<div
+						v-for="(column, index) in data"
+						:key="column.id"
+						class="min-h-screen"
+						@dragover="handleDragOver"
+						@drop="() => handleDrop(column)"
+					>
 						<div
 							class="rounded bg-slate-700 py-1 px-5 mb-2 text-center text-white"
 						>
@@ -32,6 +70,7 @@ const { data, isLoading, refetch } = useKanbanQuery()
 							v-for="card in column.items"
 							:key="card.id"
 							draggable="true"
+							@dragstart="() => handleDragStart(card, column)"
 							class="mb-2"
 						>
 							<v-card
