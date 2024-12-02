@@ -46,12 +46,8 @@ const { mutate, isPending } = useMutation({
 	},
 })
 const onSubmit = handleSubmit((values) => {
-	const payload = {
-		...values,
-		price: parseInt(values.price, 10), // Total
-	}
 	console.log('Отправляемые данные:', values)
-	mutate(payload)
+	mutate(values)
 })
 </script>
 
@@ -80,13 +76,19 @@ const onSubmit = handleSubmit((values) => {
 			placeholder="Наименование"
 			v-model="name"
 			v-bind="nameAttrs"
+			variant="outlined"
+			bg-color="white"
 			type="text"
 			class="input"
 		/>
+		<!-- костыль, подправить тип  -->
 		<v-text-field
 			placeholder="Сумма"
+			@blur="price = parseFloat(price.toString())"
 			v-model="price"
 			v-bind="priceAttrs"
+			variant="outlined"
+			bg-color="white"
 			type="text"
 			class="input"
 		/>
@@ -94,6 +96,8 @@ const onSubmit = handleSubmit((values) => {
 			placeholder="Email"
 			v-model="customerEmail"
 			v-bind="customerEmailAttrs"
+			variant="outlined"
+			bg-color="white"
 			type="text"
 			class="input"
 		/>
@@ -101,6 +105,8 @@ const onSubmit = handleSubmit((values) => {
 			placeholder="Компания"
 			v-model="customerName"
 			v-bind="customerNameAttrs"
+			variant="outlined"
+			bg-color="white"
 			type="text"
 			class="input"
 		/>
