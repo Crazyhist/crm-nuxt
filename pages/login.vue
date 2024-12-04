@@ -46,7 +46,7 @@ const register = async () => {
 			<v-form>
 				<v-text-field
 					v-model="emailRef"
-					label="Email"
+					label="test@test.ru"
 					type="email"
 					required
 					outlined
@@ -54,7 +54,7 @@ const register = async () => {
 				/>
 				<v-text-field
 					v-model="passwordRef"
-					label="Password"
+					label="12345678"
 					type="password"
 					required
 					outlined
@@ -62,7 +62,7 @@ const register = async () => {
 				/>
 				<v-text-field
 					v-model="nameRef"
-					label="Name (optional)"
+					label="Name"
 					type="text"
 					outlined
 					dense
